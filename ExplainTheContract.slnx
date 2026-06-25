@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/api/">
+    <Project Path="api/WebApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/WebApi.Tests/WebApi.Tests.csproj" />
+  </Folder>
+  <Project Path="LlmAdapter/LlmAdapter.csproj" />
+</Solution>

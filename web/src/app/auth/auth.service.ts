@@ -1,0 +1,60 @@
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+
+export interface UserDto {
+  id: string;
+  email: string;
+  role: string;
+}
+
+export interface AuthResult {
+  token: string;
+  user: UserDto;
+}
+
+const TOKEN_KEY = 'auth_token';
+const USER_KEY  = 'auth_user';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private readonly http   = inject(HttpClient);
+  private readonly router = inject(Router);
+
+  private readonly _token = signal<string | null>(localStorage.getItem(TOKEN_KEY));
+  private readonly _user  = signal<UserDto | null>(
+    JSON.parse(localStorage.getItem(USER_KEY) ?? 'null')
+  );
+
+  readonly token         = this._token.asReadonly();
+  readonly currentUser   = this._user.asReadonly();
+  readonly isAuthenticated = computed(() => !!this._token());
+
+  register(email: string, password: string, role: string) {
+    return this.http.post<AuthResult>('/api/auth/register', { email, password, role }).pipe(
+      tap(res => this._store(res))
+    );
+  }
+
+  login(email: string, password: string) {
+    return this.http.post<AuthResult>('/api/auth/login', { email, password }).pipe(
+      tap(res => this._store(res))
+    );
+  }
+
+  logout() {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    this._token.set(null);
+    this._user.set(null);
+    this.router.navigate(['/login']);
+  }
+
+  private _store(res: AuthResult) {
+    localStorage.setItem(TOKEN_KEY, res.token);
+    localStorage.setItem(USER_KEY, JSON.stringify(res.user));
+    this._token.set(res.token);
+    this._user.set(res.user);
+  }
+}

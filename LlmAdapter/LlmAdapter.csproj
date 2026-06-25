@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Product-layer LLM adapter. Copied into a run's workspace by the scaffold
+       stage when (and only when) the architecture declares an LLM integration
+       point on a .NET stack. Feature code depends on ILlmClient, never on a
+       vendor SDK; provider is env-driven. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>LlmAdapter</RootNamespace>
+  </PropertyGroup>
+
+</Project>

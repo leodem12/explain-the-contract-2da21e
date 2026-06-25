@@ -1,0 +1,13 @@
+name: sdlc-20260623-102731-2da21e
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Jwt__Key=explain-the-contract-super-secret-key-32chars!!
+      - LLM_PROVIDER=gemini
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=gemini-2.5-flash

@@ -1,0 +1,72 @@
+@use '@angular/material' as mat;
+
+// Frozen design-system theme — adapted from 04b_design.json for Angular Material v21.
+// mat.define-theme() is merged into mat.theme() in v18+; values are preserved verbatim.
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+      tertiary: mat.$cyan-palette,
+    ),
+    typography: (
+      brand-family: 'Space Grotesk',
+      plain-family: 'Space Grotesk',
+    ),
+    density: (
+      scale: 0,
+    ),
+  ));
+
+  // Frozen brand tokens — implement preserves these values
+  --mat-sys-primary:              #2D3A8C;
+  --mat-sys-on-primary:           #ffffff;
+  --mat-sys-primary-container:    #dde3ff;
+  --mat-sys-on-primary-container: #000e6a;
+
+  --mat-sys-secondary:            #C87533;
+  --mat-sys-on-secondary:         #ffffff;
+  --mat-sys-secondary-container:  #ffe0c4;
+
+  --mat-sys-tertiary:             #2D6A4F;
+  --mat-sys-on-tertiary:          #ffffff;
+  --mat-sys-tertiary-container:   #b8f0d4;
+
+  --mat-sys-error:                #BA1A1A;
+  --mat-sys-on-error:             #ffffff;
+
+  --mat-sys-surface:              #F2F4F8;
+  --mat-sys-surface-container:    #e8eaf0;
+  --mat-sys-on-surface:           #1A1C23;
+  --mat-sys-outline:              rgba(0, 0, 0, 0.22);
+
+  --mat-sys-shape-extra-small:    6px;
+  --mat-sys-shape-small:          8px;
+  --mat-sys-shape-medium:         10px;
+  --mat-sys-shape-large:          14px;
+  --mat-sys-shape-extra-large:    20px;
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+// Analysis content layer — applied to rendered analysis section bodies
+.analysis-content {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #1A1C23;
+}
+
+// Copper left-border accent for the Red Flags section
+.analysis-section--red-flags {
+  border-left: 4px solid #C87533;
+  padding-left: 16px;
+}
